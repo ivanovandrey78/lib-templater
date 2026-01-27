@@ -1,8 +1,30 @@
+# Build folders
 build/
 cmake-build-*/
+.cache/
+dist/
+out/
+target/
+
+# IDE files
 *.user
 *.swp
 *.swo
 *.vcxproj*
 *.sln
+
+# System files
 .DS_Store
+Thumbs.db
+*.tmp
+*.temp
+
+# Binary & executable files
+*.exe
+*.dll
+*.so
+*.dylib
+*.app
+
+# Logs
+*.log

@@ -118,13 +118,14 @@ git commit -m "chore(gitignore): add .vscode/ & editorconfig"
 
 ---
 
-### 1.4. Step 4 – Replace README with your own
+### 1.4. Step 4 – Replace README with your own & delete EXAMPLE
 Current README.md describes the template. For a real project you should create your own README.
 
 #### macOS / Linux
 
 ```bash
 rm README.md
+rm EXAMPLE.md
 
 cat > README.md << 'EOF'
 # Project Name
@@ -144,13 +145,14 @@ Describe here how to build your project.
 EOF
 
 git add README.md
-git commit -m "Add project-specific README"
+git commit -m "chore(readme): add project-specific README"
 ```
 
 #### Windows (PowerShell)
 
 ```powershell
 Remove-Item README.md
+Remove-Item EXAMPLE.md
 
 @'
 # Project Name
@@ -169,13 +171,14 @@ Describe here how to build your project.
 '@ | Out-File -Encoding UTF8 README.md
 
 git add README.md
-git commit -m "Add project-specific README"
+git commit -m "chore(readme): add project-specific README"
 ```
 
 #### Windows (cmd.exe)
 
 ```bat
 del README.md
+del EXAMPLE.md
 
 (
 echo # Project Name
@@ -194,7 +197,7 @@ echo Describe here how to build your project.
 ) > README.md
 
 git add README.md
-git commit -m "Add project-specific README"
+git commit -m "chore(readme): add project-specific README"
 ```
 
 ---

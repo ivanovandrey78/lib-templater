@@ -25,7 +25,6 @@ if (BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()
 
-
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 

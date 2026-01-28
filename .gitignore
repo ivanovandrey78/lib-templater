@@ -5,6 +5,7 @@ cmake-build-*/
 dist/
 out/
 target/
+Testing/
 
 # IDE files
 *.user
@@ -13,11 +14,13 @@ target/
 *.vcxproj*
 *.sln
 
-# System files
+# System files & logs
 .DS_Store
 Thumbs.db
 *.tmp
 *.temp
+*.bak
+*.log
 
 # Binary & executable files
 *.exe
@@ -25,6 +28,44 @@ Thumbs.db
 *.so
 *.dylib
 *.app
+*.slo
+*.lo
+*.o
+*.obj
 
-# Logs
-*.log
+# vcpkg
+vcpkg_installed/
+
+# CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+install_manifest.txt 
+compile_commands.json
+
+# Prerequisites
+*.d
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Linker files
+*.ilk
+
+# Debugger Files
+*.pdb
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# debug information files
+*.dwo

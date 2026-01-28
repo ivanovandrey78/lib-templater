@@ -1,104 +1,91 @@
-
 # C++ Library Template (`mylib`)
 
-Шаблон небольшого C++‑проекта‑библиотеки:
+Small C++ library project template:
 ```txt
-- CMake (с установкой и поддержкой `find_package`)
+- CMake (with installation and support `find_package`)
 - Тесты (GoogleTest + CTest)
-- Примеры использования
+- Examples of use
 - CI (GitHub Actions)
-- Настройка форматирования (`.clang-format` под Google Style)
+- Formatting settings (`.clang-format` for Google Style)
 ```
 
 ---
 
-## 1. Как использовать этот репозиторий как шаблон
+## 1. How to use this repository as a template
 
-### 1.1. Шаг 1 — клонировать шаблон
-
-```bash
-git clone https://github.com/you/mylib-template.git myproject
-cd myproject
-```
-
----
-
-### 1.2. Шаг 2 — удалить историю Git (сделать “чистый” проект)
+### 1.1. Step 1 – Delete Git history (make a “clean” project)
 
 #### macOS / Linux
 
 ```bash
 rm -rf .git
+git init
+git add --all
+git commit -m "Initial commit"
 ```
 
 #### Windows (PowerShell)
 
 ```powershell
 Remove-Item -Recurse -Force .git
+git init
+git add --all
+git commit -m "Initial commit"
 ```
 
 #### Windows (cmd.exe)
 
 ```bat
 rmdir /S /Q .git
-```
-
----
-
-### 1.3. Шаг 3 — создать новый репозиторий и первый коммит
-
-В той же директории (`myproject`):
-
-```bash
 git init
-git add .
+git add --all
 git commit -m "Initial commit"
 ```
 
 ---
 
-### 1.4. Шаг 4 — переименовать `mylib` под свой проект
+### 1.2. Step 2 - Rename `mylib` to suit your project
 
-В шаблоне используется имя `mylib`. Обычно его заменяют на имя своей библиотеки, например `awesome`:
+The template uses the name `mylib`. It is usually replaced with the name of your library, for example `awesome`:
 
-1. Папки:
+1. Folders:
    - `include/mylib/` → `include/awesome/`
-2. Неймспейс в коде:
+2. Namespace in code:
    - `namespace mylib { ... }` → `namespace awesome { ... }`
-3. Вхождения в CMake:
+3. CMake Entries:
    - `project(mylib ...)` → `project(awesome ...)`
-   - таргет `mylib` → `awesome`
+   - target `mylib` → `awesome`
    - `mylibTargets.cmake`, `mylibConfig.cmake` → `awesomeTargets.cmake`, `awesomeConfig.cmake`
    - `mylib::mylib` → `awesome::awesome`
-4. В других файлах:
-   - `README.md`, `ci.yml`, примеры, тесты (`mylib_tests` и т.п.)
+4. In other files:
+   - `README.md`, `ci.yml`, examples, tests (`mylib_tests` и т.п.)
 
-Удобнее всего сделать глобальный поиск/замену по строке `mylib` в редакторе (VS Code: `Ctrl+Shift+F` / `Cmd+Shift+F`).
+The most convenient way is to do a global search/replace by string `mylib` in IDE (VS Code: `Ctrl+Shift+F` / `Cmd+Shift+F`).
 
 ---
 
-## 2. Структура проекта
+## 2. Project structure
 
 ```text
-├─ include/mylib/      # Публичные заголовки (public API)
-├─ src/                # Реализация библиотеки
-├─ tests/              # Юнит‑тесты (GoogleTest + CTest)
-├─ examples/           # Примеры использования
-├─ cmake/              # CMake-конфиги для find_package
+├─ include/mylib/      # Public Headlines (public API)
+├─ src/                # Implementation libraries
+├─ tests/              # Unit tests (GoogleTest + CTest)
+├─ examples/           # Examples of use
+├─ cmake/              # CMake configs for find_package
 ├─ .github/workflows/  # CI (GitHub Actions)
-└─ CMakeLists.txt      # Корневой CMakeLists
+└─ CMakeLists.txt      # Root CMakeLists
 ```
 
 ---
 
-## 3. Сборка
+## 3. Build
 
-Требования:
+Requirements:
 
 ```txt
 - CMake ≥ 3.20
-- C++ компилятор с поддержкой C++20
-- (желательно) Ninja
+- C++ compiler with support C++20
+- (preferably) Ninja
 ```
 
 ```bash
@@ -111,7 +98,7 @@ cmake --build build
 
 ---
 
-## 4. Запуск тестов
+## 4. Running tests
 
 ```bash
 cd build
@@ -120,27 +107,15 @@ ctest --output-on-failure
 
 ---
 
-## 5. Примеры
+## 5. Use as an external library
 
-После сборки:
-
-```bash
-./build/examples/mylib_example_basic
-```
-
-(Путь/имя бинарника могут отличаться на Windows: `build\examples\mylib_example_basic.exe`.)
-
----
-
-## 6. Использование как внешней библиотеки
-
-После установки:
+After installation:
 
 ```bash
 cmake --install build --prefix /usr/local
 ```
 
-В другом CMake‑проекте:
+In another CMake project:
 
 ```cmake
 find_package(mylib CONFIG REQUIRED)
@@ -149,4 +124,4 @@ add_executable(app main.cpp)
 target_link_libraries(app PRIVATE mylib::mylib)
 ```
 
-Используем своё имя вместо `mylib`.
+We use our name instead `mylib`.

@@ -6,7 +6,7 @@ Small C++ library project template:
 - Тесты (GoogleTest + CTest)
 - Examples of use
 - CI (GitHub Actions)
-- Formatting settings (`.clang-format` for Google Style)
+- Formatting settings (.clang-format for Google Style)
 ```
 
 ---
@@ -20,8 +20,6 @@ Small C++ library project template:
 ```bash
 rm -rf .git
 git init
-git add --all
-git commit -m "Initial commit"
 ```
 
 #### Windows (PowerShell)
@@ -29,17 +27,13 @@ git commit -m "Initial commit"
 ```powershell
 Remove-Item -Recurse -Force .git
 git init
-git add --all
-git commit -m "Initial commit"
 ```
 
 #### Windows (cmd.exe)
 
-```bat
+```bash
 rmdir /S /Q .git
 git init
-git add --all
-git commit -m "Initial commit"
 ```
 
 ---
@@ -48,19 +42,141 @@ git commit -m "Initial commit"
 
 The template uses the name `mylib`. It is usually replaced with the name of your library, for example `awesome`:
 
-1. Folders:
-   - `include/mylib/` → `include/awesome/`
-2. Namespace in code:
-   - `namespace mylib { ... }` → `namespace awesome { ... }`
-3. CMake Entries:
-   - `project(mylib ...)` → `project(awesome ...)`
-   - target `mylib` → `awesome`
-   - `mylibTargets.cmake`, `mylibConfig.cmake` → `awesomeTargets.cmake`, `awesomeConfig.cmake`
-   - `mylib::mylib` → `awesome::awesome`
-4. In other files:
-   - `README.md`, `ci.yml`, examples, tests (`mylib_tests` и т.п.)
+1. Open your project folder in VS Code.
+2. Open **global search**:
+   - Windows/Linux: `Ctrl+Shift+F`  
+   - macOS: `Cmd+Shift+F`
+3. In the **Search** field type:
+   ```text
+   mylib
+   ```
+4. Open the Replace field:
+   Click the small arrow ▾ on the left of the search field and enable `Replace`, or
+   Press:
+   - Windows/Linux: `Ctrl+H`
+   - macOS: `Cmd+Alt+F`
+5. In the Replace field type your new name: 
+   ```text
+   awesome
+   ```
+6. Make sure:
+   - `Use Regular Expression` (.*) is off,
+   - `Match Case` (Aa) is on (so only mylib is replaced, not Mylib, etc.).
+7. Click `Replace All`
 
-The most convenient way is to do a global search/replace by string `mylib` in IDE (VS Code: `Ctrl+Shift+F` / `Cmd+Shift+F`).
+---
+
+### 1.3. Step 3 – Add .vscode/ to .gitignore
+VS Code configuration is usually considered local developer config and not tracked in Git.
+Add `.vscode/` to `.gitignore` so that it is ignored in your project.
+
+#### macOS / Linux
+
+```bash
+echo ".vscode/" >> .gitignore
+echo ".editorconfig" >> .gitignore
+git add .gitignore
+git commit -m "chore(gitignore): add .vscode/ & editorconfig"
+```
+
+#### Windows (PowerShell)
+
+```powershell
+Add-Content .gitignore ".vscode/"
+Add-Content .gitignore ".editorconfig"
+git add .gitignore
+git commit -m "chore(gitignore): add .vscode/ & editorconfig"
+```
+
+#### Windows (cmd.exe)
+
+```bat
+echo .vscode/>> .gitignore
+echo .editorconfig>> .gitignore
+git add .gitignore
+git commit -m "chore(gitignore): add .vscode/ & editorconfig"
+```
+
+---
+
+### 1.4. Step 4 – Replace README with your own
+Current README.md describes the template. For a real project you should create your own README.
+
+#### macOS / Linux
+
+```bash
+rm README.md
+
+cat > README.md << 'EOF'
+# Project Name
+
+Short description of your project.
+
+## Features
+
+- Feature 1
+- Feature 2
+- Feature 3
+
+## Build
+
+Describe here how to build your project.
+
+EOF
+
+git add README.md
+git commit -m "Add project-specific README"
+```
+
+#### Windows (PowerShell)
+
+```powershell
+Remove-Item README.md
+
+@'
+# Project Name
+
+Short description of your project.
+
+## Features
+
+- Feature 1
+- Feature 2
+- Feature 3
+
+## Build
+
+Describe here how to build your project.
+'@ | Out-File -Encoding UTF8 README.md
+
+git add README.md
+git commit -m "Add project-specific README"
+```
+
+#### Windows (cmd.exe)
+
+```bat
+del README.md
+
+(
+echo # Project Name
+echo.
+echo Short description of your project.
+echo.
+echo ## Features
+echo.
+echo - Feature 1
+echo - Feature 2
+echo - Feature 3
+echo.
+echo ## Build
+echo.
+echo Describe here how to build your project.
+) > README.md
+
+git add README.md
+git commit -m "Add project-specific README"
+```
 
 ---
 

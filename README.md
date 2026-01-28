@@ -63,6 +63,25 @@ The template uses the name `mylib`. It is usually replaced with the name of your
    - `Use Regular Expression` (.*) is off,
    - `Match Case` (Aa) is on (so only mylib is replaced, not Mylib, etc.).
 7. Click `Replace All`
+8. Also rename the file "`mylibConfig.cmake.in`":
+
+#### macOS / Linux
+
+```bash
+mv cmake/mylibConfig.cmake.in cmake/awesomeConfig.cmake.in
+```
+
+#### Windows (PowerShell)
+
+```powershell
+Rename-Item -Path cmake/mylibConfig.cmake.in -NewName awesomeConfig.cmake.in
+```
+
+#### Windows (cmd.exe)
+
+```bash
+ren cmake\mylibConfig.cmake.in awesomeConfig.cmake.in
+```
 
 ---
 

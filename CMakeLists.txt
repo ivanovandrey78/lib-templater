@@ -1,68 +1,34 @@
 cmake_minimum_required(VERSION 3.20)
 
-# Project info
-project(mylib
+project(
+    awesome
     VERSION 0.1.0
     LANGUAGES CXX
 )
 
-# Flags
-option(BUILD_TESTING   "Build tests"    ON)
-option(BUILD_EXAMPLES  "Build examples" ON)
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Set main library
+option(BUILD_TESTS "Build tests" ON)
+option(BUILD_BIN "Build bin targets" ON)
+option(ENABLE_INSTALL "Enable install rules" ON)
+
+include(cmake/dependencies.cmake)
+
 add_subdirectory(src)
 
-# Tests
-if (BUILD_TESTING)
+if(BUILD_BIN)
+    add_subdirectory(bin)
+endif()
+
+if(BUILD_TESTS)
     include(CTest)
     enable_testing()
     add_subdirectory(tests)
 endif()
 
-# Examples
-if (BUILD_EXAMPLES)
-    add_subdirectory(examples)
+if(ENABLE_INSTALL)
+    include(cmake/install-rules.cmake)
 endif()
-
-include(GNUInstallDirs)
-include(CMakePackageConfigHelpers)
-
-# Installing the library itself
-install(TARGETS mylib
-    EXPORT mylibTargets
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
-
-# Setting Headers
-install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-
-# Exporting targets to a separate file
-install(EXPORT mylibTargets
-    NAMESPACE mylib::
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mylib
-    FILE mylibTargets.cmake
-)
-
-# Version file for find_package(mylib 0.1 CONFIG)
-write_basic_package_version_file(
-    "${CMAKE_CURRENT_BINARY_DIR}/mylibConfigVersion.cmake"
-    VERSION ${PROJECT_VERSION}
-    COMPATIBILITY SameMajorVersion
-)
-
-# Config package
-configure_package_config_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/mylibConfig.cmake.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/mylibConfig.cmake"
-    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mylib
-)
-
-# Installing configs
-install(FILES
-    "${CMAKE_CURRENT_BINARY_DIR}/mylibConfig.cmake"
-    "${CMAKE_CURRENT_BINARY_DIR}/mylibConfigVersion.cmake"
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mylib
-)

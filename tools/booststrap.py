@@ -247,10 +247,8 @@ class Options:
     with_bin_test: bool
     dry_run: bool
 
-
 class BootstrapError(RuntimeError):
     pass
-
 
 class Bootstrapper:
     def __init__(self, root: Path, options: Options) -> None:
@@ -281,13 +279,12 @@ class Bootstrapper:
             raise BootstrapError(
                 "Repository layout does not match the current template. Missing: " + ", ".join(missing)
             )
+
     def _write_clang_format(self) -> None:
         preset = CLANG_FORMAT_PRESETS[self.options.codestyle]
-        lines = ["---"]
         for key, value in preset.items():
             rendered = str(value).lower() if isinstance(value, bool) else str(value)
             lines.append(f"{key}: {rendered}")
-        lines.append("...")
         content = "\n".join(lines) + "\n"
         self._write_text(self.root / ".clang-format", content, "write .clang-format")
 
@@ -537,14 +534,12 @@ class Bootstrapper:
         print("  3. Run: cmake --build build")
         print("  4. Run: ctest --test-dir build --output-on-failure")
 
-
 def validate_project_name(value: str) -> str:
     if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", value):
         raise argparse.ArgumentTypeError(
             "Project name must start with a letter and contain only letters, digits and underscores."
         )
     return value
-
 
 def validate_namespace(value: str) -> str:
     pattern = r"[A-Za-z_][A-Za-z0-9_]*(::[A-Za-z_][A-Za-z0-9_]*)*"
@@ -585,7 +580,6 @@ def build_parser() -> argparse.ArgumentParser:
     )
     return parser
 
-
 def prompt_choice(title: str, choices: list[str], default: str) -> str:
     print(title)
     for index, choice in enumerate(choices, start=1):
@@ -602,7 +596,6 @@ def prompt_choice(title: str, choices: list[str], default: str) -> str:
         return raw
     raise BootstrapError(f"Invalid choice: {raw}")
 
-
 def prompt_bool(title: str, default: bool) -> bool:
     suffix = "[Y/n]" if default else "[y/N]"
     raw = input(f"{title} {suffix} ").strip().lower()
@@ -613,7 +606,6 @@ def prompt_bool(title: str, default: bool) -> bool:
     if raw in {"n", "no"}:
         return False
     raise BootstrapError(f"Invalid yes/no answer: {raw}")
-
 
 def load_json_config(path: Path | None) -> dict[str, object]:
     if path is None:
@@ -627,7 +619,6 @@ def load_json_config(path: Path | None) -> dict[str, object]:
     if not isinstance(data, dict):
         raise BootstrapError("Config file root must be a JSON object.")
     return data
-
 
 def resolve_options(args: argparse.Namespace) -> Options:
     config = load_json_config(args.config)
@@ -684,7 +675,6 @@ def resolve_options(args: argparse.Namespace) -> Options:
         dry_run=bool(args.dry_run),
     )
 
-
 def main() -> int:
     parser = build_parser()
     args = parser.parse_args()
@@ -701,7 +691,6 @@ def main() -> int:
         return 130
 
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

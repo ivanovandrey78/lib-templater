@@ -5,7 +5,7 @@ add_library(mylib
 
 target_include_directories(mylib
     PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
 )
 
@@ -18,3 +18,6 @@ if (MSVC)
 else()
     target_compile_options(mylib PRIVATE -Wall -Wextra -Wpedantic)
 endif()
+
+# Alias
+add_library(mylib::mylib ALIAS mylib)

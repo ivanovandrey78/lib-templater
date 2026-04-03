@@ -4,10 +4,15 @@ add_executable(mylib_bin
 
 target_link_libraries(mylib_bin
     PRIVATE
-        mylib::mylib
+        mylib
 )
 
-target_include_directories(main
+target_include_directories(mylib_bin
     PUBLIC
         ${CMAKE_SOURCE_DIR}/include
+)
+
+set_target_properties(mylib_bin PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+    OUTPUT_NAME "main"
 )

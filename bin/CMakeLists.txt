@@ -1,8 +1,13 @@
-add_executable(mylib_example_basic
-    basic_usage.cpp
+add_executable(mylib_bin
+    main.cpp
 )
 
-target_link_libraries(mylib_example_basic
+target_link_libraries(mylib_bin
     PRIVATE
-        mylib
+        mylib::mylib
+)
+
+target_include_directories(main
+    PUBLIC
+        ${CMAKE_SOURCE_DIR}/include
 )

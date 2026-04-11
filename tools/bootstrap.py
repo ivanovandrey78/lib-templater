@@ -317,6 +317,7 @@ class Bootstrapper:
         self._write_editorconfig()
         self._update_gitignore()
         self._replace_in_text_files()
+        self._fix_tests_cmakelists()
         self._rename_paths()
         self._configure_bin()
         self._configure_examples()
@@ -379,6 +380,20 @@ class Bootstrapper:
             updated = self._apply_replacements(original, replacements)
             if updated != original:
                 self._write_text(path, updated, f"replace placeholders in {path.relative_to(self.root)}")
+
+    def _fix_tests_cmakelists(self) -> None:
+    path = self.root / "tests" / "CMakeLists.txt"
+    if not path.exists():
+        return
+
+    content = path.read_text(encoding="utf-8")
+    content = re.sub(
+        r"target_link_libraries\(__PROJECT_NAME_TESTS__\s+PRIVATE\s+[A-Za-z_][A-Za-z0-9_]*::[A-Za-z_][A-Za-z0-9_]*",
+        f"target_link_libraries(__PROJECT_NAME_TESTS__\n    PRIVATE\n        __PROJECT_NAME__::__PROJECT_NAME__",
+        content,
+        flags=re.MULTILINE,
+    )
+    self._write_text(path, content, "fix tests/CMakeLists.txt target link")
 
     def _build_replacements(self) -> list[tuple[re.Pattern[str], str]]:
         project = self.options.project_name

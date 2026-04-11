@@ -2,7 +2,7 @@ include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
 install(
-    TARGETS mylib
+    TARGETS __PROJECT_NAME__
     EXPORT mylibTargets
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -15,27 +15,27 @@ install(
 )
 
 install(
-    EXPORT mylibTargets
-    NAMESPACE mylib::
-    FILE mylibTargets.cmake
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mylib
+    EXPORT __PROJECT_NAME__Targets
+    NAMESPACE __PROJECT_NAME__::
+    FILE __PROJECT_NAME__Targets.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/__PROJECT_NAME__
 )
 
 write_basic_package_version_file(
-    "${CMAKE_CURRENT_BINARY_DIR}/mylibConfigVersion.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/__PROJECT_NAME__ConfigVersion.cmake"
     VERSION ${PROJECT_VERSION}
     COMPATIBILITY SameMajorVersion
 )
 
 configure_package_config_file(
-    "${PROJECT_SOURCE_DIR}/cmake/mylibConfig.cmake.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/mylibConfig.cmake"
-    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mylib
+    "${PROJECT_SOURCE_DIR}/cmake/__PROJECT_NAME__Config.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/__PROJECT_NAME__Config.cmake"
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/__PROJECT_NAME__
 )
 
 install(
     FILES
-        "${CMAKE_CURRENT_BINARY_DIR}/mylibConfig.cmake"
-        "${CMAKE_CURRENT_BINARY_DIR}/mylibConfigVersion.cmake"
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mylib
+        "${CMAKE_CURRENT_BINARY_DIR}/__PROJECT_NAME__Config.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/__PROJECT_NAME__ConfigVersion.cmake"
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/__PROJECT_NAME__
 )

@@ -10,15 +10,15 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 FetchContent_MakeAvailable(googletest)
 
-add_executable(mylib_tests
+add_executable(__PROJECT_NAME_TESTS__
     test_foo.cpp
 )
 
-target_link_libraries(mylib_tests
+target_link_libraries(__PROJECT_NAME_TESTS__
     PRIVATE
-        mylib::mylib
+        __PROJECT_NAME__::__PROJECT_NAME__
         GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(mylib_tests)
+gtest_discover_tests(__PROJECT_NAME_TESTS__)

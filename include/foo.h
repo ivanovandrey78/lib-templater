@@ -1,12 +1,12 @@
-#ifndef __PROJECT_HEADER__DEFAULT__NAME__
-#define MYLIB_FOO_H
+#ifndef __PROJECT_INCLUDE_GUARD__
+#define __PROJECT_INCLUDE_GUARD__
 
 #include <string>
 
-namespace mylib {
+namespace __PROJECT_NAMESPACE__ {
 
 /* some functions */
 
-} // namespace mylib
+} // namespace __PROJECT_NAMESPACE__
 
-#endif // MYLIB_FOO_H
+#endif // __PROJECT_INCLUDE_GUARD__

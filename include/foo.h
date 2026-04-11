@@ -1,4 +1,4 @@
-#ifndef MYLIB_FOO_H
+#ifndef __PROJECT_HEADER__DEFAULT__NAME__
 #define MYLIB_FOO_H
 
 #include <string>
